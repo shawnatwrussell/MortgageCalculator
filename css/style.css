@@ -13,6 +13,14 @@ body {
   color: #4e4e4e;
 }
 
+#container {
+  width: 300px;
+  background: #eee;
+  display: inline-block
+}
+
+
+
 h1,
 h2,
 h3,

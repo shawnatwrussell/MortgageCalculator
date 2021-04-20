@@ -61,7 +61,8 @@
                     </li>
                     <li class="nav-item">
                         <!--TODO: Add GitHub Link-->
-                        <a class="nav-link js-scroll" href="Placeholder" target="_blank">Get the Code</a>
+                        <a class="nav-link js-scroll" href="https://github.com/shawnatwrussell/MortgageCalculator"
+                            target="_blank">Get the Code</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll" href="contact.html" target="_blank">Contact the Developer</a>
@@ -78,7 +79,7 @@
             <div class="table-cell">
                 <div class="container">
                     <!--<p class="display-6 color-d">Hello, world!</p>-->
-                    <h1 class="intro-title mb-4">Placeholder</h1>
+                    <h1 class="intro-title mb-4">Mortgage Loan Calculator</h1>
                     <!-- <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="#about" role="button">Learn More</a></p> -->
                 </div>
             </div>
@@ -95,13 +96,163 @@
                     <div class="col">
                         <div class="box-shadow-full">
                             <h5>
-                                <div class="title">See the Code</div>
+                                <div class="title">See the App Code</div>
                             </h5>
                             <div class="row">
                                 <div class="col line-numbers">
-                                    <pre><code class="language-javascript">Placeholder (Copy of Code)
+                                    <pre><code class="language-javascript">//Returns an array of information to be templated
+function calculateLoan(amount, term, rate) {
+    //TWO: Calculate the Collected User Data
+    //Total Monthly Payment = (amount loaned) * (rate/1200) / (1 – (1 + rate/1200)^(-Number of Months) )
+    let totalMonPay = (amount) * (rate / 1200) / (1 - Math.pow((1 + rate / 1200), -term));
+    let remainingBal = amount; 
+    //Remaining Balance = Balance After Each Monthly Payment 
+    let interestPay = remainingBal * (rate / 1200); 
+    //Interest Payment = Previous Remaining Balance * rate/1200
+    let principalPay = totalMonPay - interestPay; 
+    //Principal Payment = Total Monthly Payment - Interest Payment
+    let totalInterest = 0; //Remaining Balance = Previous Remaining Balance - principal payments
+    let totalPrincipal = 0; //Total amount paid on principal
+
+    let loanData = [];
+    //For loop based on rate for(let i = 1; i <= term; i++)
+    for (let i = 1; i <= term; i++) { //To show the month use the index of the loop
+        let obj = {};
+        obj["totalMonPay"] = principalPay + interestPay;
+        obj["totalInterest"] = totalInterest += interestPay; 
+        //total interest will gradually increase as monthly payments are made
+        obj["principalPay"] = principalPay = totalMonPay - interestPay; 
+        //Principal will increase since interest amount owed goes down
+        obj["remainingBal"] = remainingBal -= principalPay; 
+        //Remaining balance will slowly decrease as payments are made
+        obj["interestPay"] = interestPay = remainingBal * (rate / 1200); 
+        //As loop continues, it gradually decreases as more payments are made
+        obj["totalPrincipal"] = totalPrincipal += principalPay;
+        obj["month"] = month = i;
+        //obj["totalMonPay"] = totalMonPay;
+
+        loanData.push(obj);
+    }
+
+    return loanData;
+
+    //In each loop you need to store: What month, total interest paid, 
+    //total principal paid, interest for this
+    //month, principal for this month, remaining principle (amount - total principal) 
+}
+
+//Your Payments Section=Display Area for User Input Form
+function loadCalculationResult() {
+    let loanData = [];
+    loanData = startLoan;
+    displayData(loanData, amount, term, rate);
+
+};
+
+function startLoan() {
+    //ONE: User Input Form Section
+    const amount = Number(document.getElementById("loanAmount").value); //Input = Total Loan Amount 
+    const term = Number(document.getElementById("loanTerm").value); //Input = Term of the Loan in Months
+    const rate = Number(document.getElementById("loanRate").value); //Input = Interest Rate
+
+    let calculationResult = calculateLoan(amount, term, rate);
+
+    displayData(calculationResult, amount, term, rate);
+}
+
+//Amoritized Loan Payment Schedule Table
+function displayData(loanData, amount) {
+    //Use amount, term, and rate to redisplay the information the user entered on the table
+    const template = document.getElementById("Schedule-Template");
+    const resultsBody = document.getElementById("resultsBody");
+    //Clear Table First
+    resultsBody.innerHTML = "";
+    for (let i = 0; i < loanData.length; i++) {
+        const dataRow = document.importNode(template.content, true);
+
+
+        dataRow.getElementById("month").textContent = loanData[i].month;
+        dataRow.getElementById("payment").textContent = loanData[i].totalMonPay.toFixed(2);
+        dataRow.getElementById("principalPay").textContent = loanData[i].principalPay.toFixed(2);
+        dataRow.getElementById("totalPrincipal").textContent = loanData[i].totalPrincipal.toFixed(2);
+        dataRow.getElementById("interestPay").textContent = Math.abs(loanData[i].interestPay.toFixed(2));
+        dataRow.getElementById("totalInterest").textContent = loanData[i].totalInterest.toFixed(2);
+        dataRow.getElementById("newBalance").textContent = Math.abs(loanData[i].remainingBal.toFixed(2));
+
+        //Use .toFixed(2) to display the output as standard US currency
+        //Only use it for display you need to retain the full value for calculations
+
+        resultsBody.appendChild(dataRow);
+
+    }
+    //Display Total Principal and Total Interest in a Chart
+    createChart(loanData);
+
+
+    //Create the Summary Area
+    document.getElementById("monthlyPayment").innerText = moneyPrint(loanData[0].totalMonPay.toFixed(2));
+    document.getElementById("totalPrincipal").innerText = moneyPrint(amount);
+    document.getElementById("totalInterest").innerText = moneyPrint(
+        loanData[loanData.length - 1].totalInterest.toFixed(2));
+    document.getElementById("totalCost").innerText = moneyPrint(
+        (amount + loanData[loanData.length - 1].totalInterest).toFixed(2));
+
+}
+
+//Display Numbers as US Currency
+function moneyPrint(amount) {
+    return Number(amount).toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD",
+    });
+
+}
                                                 </code>
                                             </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="box-shadow-full">
+                            <h5>
+                                <div class="title">See the Chart Code</div>
+                            </h5>
+                            <div class="row">
+                                <div class="col line-numbers">
+                                    <pre><code class="language-javascript">function createChart(dataset) {
+    var ctx = document.getElementById('myChart');
+    let position = dataset.length - 1;
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Principal', 'Interest'],
+            datasets: [{
+                label: '% of total',
+                data: [dataset[position].totalPrincipal.toFixed(2), 
+                dataset[position].totalInterest.toFixed(2)],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+    });
+
+}
+                                        </code>
+                                        </pre>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +267,7 @@
     </main>
     <!-- END MAIN SECTION -->
 
-<!-- ======= Footer ======= -->
+    <!-- ======= Footer ======= -->
     <footer>
         <div class="container">
             <div class="row">

@@ -9,7 +9,6 @@ function calculateLoan(amount, term, rate) {
     let totalInterest = 0; //Remaining Balance = Previous Remaining Balance - principal payments
     let totalPrincipal = 0; //Total amount paid on principal
 
-    // let loanData = JSON.parse(sessionStorage.getItem("calculateLoan")) || [];
     let loanData = [];
     //For loop based on rate for(let i = 1; i <= term; i++)
     for (let i = 1; i <= term; i++) { //To show the month use the index of the loop
@@ -19,13 +18,11 @@ function calculateLoan(amount, term, rate) {
         obj["principalPay"] = principalPay = totalMonPay - interestPay; //Principal will increase since interest amount owed goes down
         obj["remainingBal"] = remainingBal -= principalPay; //Remaining balance will slowly decrease as payments are made
         obj["interestPay"] = interestPay = remainingBal * (rate / 1200); //As loop continues, it gradually decreases as more payments are made
-        obj["totalPrincipal"] = totalPrincipal += totalMonPay;
+        obj["totalPrincipal"] = totalPrincipal += principalPay;
         obj["month"] = month = i;
         //obj["totalMonPay"] = totalMonPay;
 
         loanData.push(obj);
-
-        // sessionStorage.setItem("calculateLoan", JSON.stringify(loanData));
     }
 
     return loanData;
@@ -63,26 +60,38 @@ function displayData(loanData, amount) {
     for (let i = 0; i < loanData.length; i++) {
         const dataRow = document.importNode(template.content, true);
 
+
         dataRow.getElementById("month").textContent = loanData[i].month;
         dataRow.getElementById("payment").textContent = loanData[i].totalMonPay.toFixed(2);
         dataRow.getElementById("principalPay").textContent = loanData[i].principalPay.toFixed(2);
         dataRow.getElementById("totalPrincipal").textContent = loanData[i].totalPrincipal.toFixed(2);
-        dataRow.getElementById("interestPay").textContent = loanData[i].interestPay.toFixed(2);
+        dataRow.getElementById("interestPay").textContent = Math.abs(loanData[i].interestPay.toFixed(2));
         dataRow.getElementById("totalInterest").textContent = loanData[i].totalInterest.toFixed(2);
-        dataRow.getElementById("newBalance").textContent = loanData[i].remainingBal.toFixed(2);
-
-        resultsBody.appendChild(dataRow);
-
-        
+        dataRow.getElementById("newBalance").textContent = Math.abs(loanData[i].remainingBal.toFixed(2));
 
         //Use .toFixed(2) to display the output as standard US currency
         //Only use it for display you need to retain the full value for calculations
-    }
 
-    //Build out the summary area
-    document.getElementById("monthlyPayment").innerText = loanData[0].totalMonPay.toFixed(2);
-    document.getElementById("totalPrincipal").innerText = amount;
-    document.getElementById("totalInterest").innerText = loanData[loanData.length - 1].totalInterest.toFixed(2);
-    document.getElementById("totalCost").innerText = (amount + loanData[loanData.length - 1].totalInterest).toFixed(2);
+        resultsBody.appendChild(dataRow);
+
+    }
+    //Display Total Principal and Total Interest in a Chart
+    createChart(loanData);
+
+
+    //Create the Summary Area
+    document.getElementById("monthlyPayment").innerText = moneyPrint(loanData[0].totalMonPay.toFixed(2));
+    document.getElementById("totalPrincipal").innerText = moneyPrint(amount);
+    document.getElementById("totalInterest").innerText = moneyPrint(loanData[loanData.length - 1].totalInterest.toFixed(2));
+    document.getElementById("totalCost").innerText = moneyPrint((amount + loanData[loanData.length - 1].totalInterest).toFixed(2));
+
+}
+
+//Display Numbers as US Currency
+function moneyPrint(amount) {
+    return Number(amount).toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD",
+    });
 
 }

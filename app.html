@@ -21,11 +21,14 @@
     <link href="/css/venobox.min.css" rel="stylesheet">
     <link href="/css/devicon.min.css" rel="stylesheet">
     <link href="//cdn.jsdelivr.net/gh/devicons/devicon@v2.11.0/devicon.min.css" rel="stylesheet">
+    <link href="css/apexcharts.css" rel="stylesheet">
 
 
     <!-- Template Main CSS File -->
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/site.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
 
     <!-- =======================================================
   * Template Name: DevFolio - v2.4.1
@@ -61,7 +64,7 @@
                             <a class="nav-link js-scroll" href="code.html" target="_blank">See the Code</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll" href="https://github.com/shawnatwrussell/Tacocat"
+                            <a class="nav-link js-scroll" href="https://github.com/shawnatwrussell/MortgageCalculator"
                                 target="_blank">Get the
                                 Code</a>
                         </li>
@@ -100,15 +103,15 @@
                         <form id="calculationForm">
                             <div class="form-group">
                                 <label for="loanAmount">Loan Amount</label>
-                                <input type="text" class="number" id="loanAmount" placeholder="">
+                                <input type="text" class="number" id="loanAmount" placeholder="Enter Loan Amount">
                             </div>
                             <div class="form-group">
                                 <label for="loanTerm">Term (months)</label>
-                                <input type="text" class="number" id="loanTerm" placeholder="">
+                                <input type="text" class="number" id="loanTerm" placeholder="Enter Term Length">
                             </div>
                             <div class="form-group">
                                 <label for="loanRate">Interest Rate</label>
-                                <input type="text" class="number" id="loanRate" placeholder="">
+                                <input type="text" class="number" id="loanRate" placeholder="Enter Interest Rate %">
                             </div>
                             <!--TODO: Redo the Button-->
                             <button id="submitBtn" type="button" class="btn btn-danger">
@@ -119,10 +122,11 @@
                     <!--END USER INPUT SECTION-->
 
 
-                    <!--GRAPH?-->
+                    <!--CHART-->
                     <div class="col-sm-4">
-                        <div>
-                            <canvas id="myChart"></canvas>
+                        <h6 class="intro-title mb-4" style="text-align:center">Mortgage Loan Chart</h6>
+                        <div class="card" title=>
+                            <canvas id="myChart" width="1600" height="900"></canvas>
                         </div>
                     </div>
                     <!--END GRAPH SECTION-->
@@ -263,10 +267,8 @@
     <script src="/js/jquery.waypoints.min.js"></script>
     <script src="/js/jquery.counterup.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/typed.min.js"></script>
     <script src="/js/venobox.min.js"></script>
-    <script src="/js/script.js"></script>
-    <!--Devicon-->
+    <script src="/js/apexcharts.min.js"></script>
 
     <!-- Template Main JS File -->
     <script src="/js/main.js"></script>
@@ -276,6 +278,7 @@
     </script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="/js/site.js"></script>
+    <script src="/js/chart.js"></script>
     <script>
         document.getElementById("submitBtn").addEventListener("click", startLoan);
     </script>
