@@ -77,30 +77,15 @@
         </nav>
     </header>
 
-    <!-- ======= Intro Section ======= -->
-    <div id="home" class="intro route bg-image" style="background-image: url(/img/intro-bg.jpg)">
-        <div class="overlay-intro"></div>
-        <div class="intro-content display-table">
-            <div class="table-cell">
-                <div class="container">
-                    <h1 class="intro-title mb-4">Mortgage Loan Calculator</h1>
-                    <!--SCROLL DOWN-->
-                    <a class="scroll-down" size="small"><i class="fa fa-chevron-down"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    <!-- End Intro Section -->
 
     <!--START MAIN SECTION-->
 
     <main>
-        <section id="about" class="about">
-            <div class="container">
-                <div class="row">
-                    <!--START USER INPUT SECTION-->
-                    <div class="col-sm-4">
+        <div class="container-fluid pt-5 mt-5">
+            <div class="row mt-5">
+                <!--START USER INPUT SECTION-->
+                <div class="col-sm-4">
+                    <div class="card shadow p-3 mb-5 bg-white rounded">
                         <form id="calculationForm">
                             <div class="form-group">
                                 <label for="loanAmount">Loan Amount</label>
@@ -120,54 +105,53 @@
                             </button>
                         </form>
                     </div>
-                    <!--END USER INPUT SECTION-->
+                </div>
+                <!--END USER INPUT SECTION-->
 
-
-                    <!--CHART-->
-                    <div class="col-sm-4">
+                <!--CHART-->
+                <div class="col-sm-4">
+                    <div class="card shadow p-3 mb-5 bg-white rounded">
                         <h6 class="intro-title mb-4" style="text-align:center">Mortgage Loan Chart</h6>
                         <div class="card" title=>
                             <canvas id="myChart" width="1600" height="900"></canvas>
                         </div>
                     </div>
-                    <!--END GRAPH SECTION-->
+                </div>
+                <!--END GRAPH SECTION-->
 
-                    <!--START SUMMARY SECTION-->
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="row">
-                                <div class="col loanSummary">
-                                    <div id="summaryTitle">
-                                        <h4 style="text-align:center">Your Monthly Payment</h4>
+                <!--START SUMMARY SECTION-->
+                <div class="col-sm-4">
+                    <div class="card shadow p-3 mb-5 bg-white rounded">
+                        <div class="row">
+                            <div class="col loanSummary">
+                                <div id="summaryTitle">
+                                    <h4 style="text-align:center">Your Monthly Payment</h4>
+                                </div>
+                                <h6 style="text-align:center" id="monthlyPayment"></h6>
+                                <div class="row">
+                                    <div class="col">
+                                        <span style="text-align:left; padding:20px">Total
+                                            Principal</span>
                                     </div>
-                                    <h6 style="text-align:center" id="monthlyPayment"></h6>
-                                    <div class="row">
-                                        <div class="col">
-                                            <span style="text-align:left; padding:20px">Total
-                                                Principal</span>
-                                        </div>
-                                        <div class="col" style="text-align:right">
-                                            <span style="padding:20px" id="totalPrincipal"></span>
-                                        </div>
+                                    <div class="col" style="text-align:right">
+                                        <span style="padding:20px" id="totalPrincipal"></span>
                                     </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <span style="text-align:left; padding:20px">Total Interest</span>
-                                        </div>
-                                        <div class="col" style="text-align:right">
-                                            <span style="padding:20px" id="totalInterest"></span>
-                                        </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <span style="text-align:left; padding:20px">Total Interest</span>
                                     </div>
-
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <span style="text-align:left; padding:20px">Total Cost</span>
-                                        </div>
-                                        <div class="col" style="text-align:right">
-                                            <span style="padding:20px" id="totalCost"></span>
-                                        </div>
+                                    <div class="col" style="text-align:right">
+                                        <span style="padding:20px" id="totalInterest"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <span style="text-align:left; padding:20px">Total Cost</span>
+                                    </div>
+                                    <div class="col" style="text-align:right">
+                                        <span style="padding:20px" id="totalCost"></span>
                                     </div>
                                 </div>
                             </div>
@@ -175,41 +159,42 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!--END SUMMARY SECTION-->
+        <!--END SUMMARY SECTION-->
 
-            <!--START DATA TABLE-->
-            <div class="row">
-                <div class="col-12">
-                    <div class="box-shadow-full">
-                        <div class="row">
-                            <div class="col-12">
-                                <hr>
-                                <table class="table table-striped" id="paymentSchedule">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>MONTH</th>
-                                            <th>PAYMENT</th>
-                                            <th>PAID PRINCIPAL</th>
-                                            <th>TOTAL PRINCIPAL</th>
-                                            <th>PAID INTEREST</th>
-                                            <th>TOTAL INTEREST</th>
-                                            <th>NEW BALANCE</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="resultsBody">
-                                        <!--DATA GOES HERE-->
-                                    </tbody>
-                                </table>
-                            </div>
+        <!--START DATA TABLE-->
+        <div class="row">
+            <div class="col-12">
+                <div class="box-shadow-full">
+                    <div class="row">
+                        <div class="col-12">
+                            <hr>
+                            <table class="table table-striped" id="paymentSchedule">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>MONTH</th>
+                                        <th>PAYMENT</th>
+                                        <th>PAID PRINCIPAL</th>
+                                        <th>TOTAL PRINCIPAL</th>
+                                        <th>PAID INTEREST</th>
+                                        <th>TOTAL INTEREST</th>
+                                        <th>NEW BALANCE</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="resultsBody">
+                                    <!--DATA GOES HERE-->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--END TABLE SECTION-->
-            </div>
-            <!--END CONTAINER-->
-            <div class="container mt-5"></div>
+        </div>
+        <!--END TABLE SECTION-->
+        </div>
+        <!--END CONTAINER-->
+        <div class="container mt-5"></div>
         </section>
     </main>
     <!-- END MAIN SECTION -->
